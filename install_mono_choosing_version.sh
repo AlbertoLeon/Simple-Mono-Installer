@@ -98,4 +98,17 @@ echo
 echo "done"
 echo "Creating parallel environment"
 
+cat > ~/mono-$version << EOF
+MONO_PREFIX=/opt/mono-$version
+export DYLD_LIBRARY_FALLBACK_PATH=\$MONO_PREFIX/lib:\$DYLD_LIBRARY_FALLBACK_PATH
+export LD_LIBRARY_PATH=\$MONO_PREFIX/lib:\$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=\$MONO_PREFIX/include:\$GNOME_PREFIX/include
+export ACLOCAL_PATH=\$MONO_PREFIX/share/aclocal
+export PKG_CONFIG_PATH=\$MONO_PREFIX/lib/pkgconfig:\$GNOME_PREFIX/lib/pkgconfig
+export PATH=\$MONO_PREFIX/bin:\$PATH
+PS1="\[mono-$version\] \\w \@ "
+EOF
+
+echo "now you can type source ~/mono-$version in a bash console and you will get a parallel mono environment. Then type mono -V to check that is the version that you wanted to install."
+
 
